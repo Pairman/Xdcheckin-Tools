@@ -4,7 +4,7 @@
 
 	<meta name="viewport" content="initial-scale=1">
 	<link rel="shortcut icon" href="#">
-	<style>.info-div {word-wrap: break-word; width: 100%;}</style>
+	<style>.info-div {white-space: pre-wrap; word-wrap: break-word; width: 100%;}</style>
 	<script src="static/CXJSBridge.js"></script>
 
 	<body>
@@ -13,7 +13,7 @@
 			&emsp;
 			<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
 		</div>
-		<div id="chaoxing-configs">{}</div>
+		<div id="chaoxing-configs-div" class="info-div">{}</div>
 		<br>
 
 		<div>User Agent:</div>
@@ -34,7 +34,7 @@
 			const device_identifier_matches = (/\(@Kalimdor\)_(.*?)$/g).exec(navigator.userAgent);
 			if (device_identifier_matches) {
 				chaoxing_configs["chaoxing_device_identifier"] = device_identifier_matches[1];
-				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs, null, "    ");
+				document.getElementById("chaoxing-configs-div").innerText = JSON.stringify(chaoxing_configs, null, "\t");
 			}
 
 			function  _jsBridgeReady(){
@@ -43,16 +43,16 @@
 						const device_code = ret.flagInfo.trim().replace(/[?&]/g, "");
 						document.getElementById("device-flag-div").innerText = JSON.stringify({
 							deviceCode: device_code, flagInfo: ret.flagInfo
-						}, null, "    ");
+						}, null, "\t");
 						chaoxing_configs["chaoxing_device_code"] = device_code;
-						document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs, null, "    ");
+						document.getElementById("chaoxing-configs-div").innerText = JSON.stringify(chaoxing_configs, null, "\t");
 					});
 					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
 				} catch (err) {}
 
 				try {
 					jsBridge.bind("CLIENT_USER_LOCATION", function(ret) {
-						document.getElementById("user-location-div").innerText = JSON.stringify(ret, null, "    ");
+						document.getElementById("user-location-div").innerText = JSON.stringify(ret, null, "\t");
 					});
 					jsBridge.postNotification("CLIENT_USER_LOCATION", {});
 				} catch (err) {}
