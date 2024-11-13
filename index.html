@@ -29,7 +29,7 @@
 			const chaoxing_configs = {};
 
 			document.getElementById("user-agent-div").innerText = navigator.userAgent;
-			const device_identifier = (/\(@Kalimdor\)_(.*?)$/g).exec(s);
+			const device_identifier = (/\(@Kalimdor\)_(.*?)$/g).exec(navigator.userAgent);
 			if (device_identifier) {
 				chaoxing_configs["chaoxing_device_identifier"] = device_identifier;
 				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs);
