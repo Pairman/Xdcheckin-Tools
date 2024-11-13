@@ -11,6 +11,11 @@
 	<script src="static/CXJSBridge.js"></script>
 
 	<body>
+		<p>Chaoxing Configurations</p>
+		&emsp;
+		<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
+		<div id="chaoxing-configs">{}</div>
+		<br>
 		<p>User Agent:</p>
 		<div id="user-agent-div" class="info-div"></div>
 		<br>
@@ -19,11 +24,6 @@
 		<br>
 		<p>User Location:</p>
 		<div id="user-location-div" class="info-div"></div>
-		<br>
-		<p>Chaoxing Configurations</p>
-		&emsp;
-		<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
-		<div id="chaoxing-configs">{}</div>
 
 		<script>
 			const chaoxing_configs = {};
