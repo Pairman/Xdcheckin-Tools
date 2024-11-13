@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<title>Xdcheckin Tools</title>
+
+	<meta name="viewport" content="initial-scale=1">
+	<link rel="shortcut icon" href="#">
+	<style>.info-div {word-wrap: break-word; width: 100%;}</style>
+	<script src="static/CXJSBridge.js"></script>
+
+	<body>
+		<p>User Agent:</p>
+		<div id="user-agent-div" class="info-div"></div>
+		<br>
+		<p>Device Flag:</p>
+		<div id="device-flag-div" class="info-div"></div>
+		<br>
+		<p>User Location:</p>
+		<div id="user-location-div" class="info-div"></div>
+
+		<script>
+			document.getElementById("user-agent-div").innerText = navigator.userAgent;
+
+			function  _jsBridgeReady(){
+				try {
+					jsBridge.bind("CLIENT_DEVICE_FLAG", function(ret) {
+						if (ret && ret.flaginfo)
+							ret.deviceCode = ret.flagInfo.trim().replace(/[?&]/g, "");
+						document.getElementById("device-flag-div").innerText = JSON.stringify(ret, null, "\t");
+					});
+					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
+				} catch (err) {}
+
+				try {
+					jsBridge.bind("CLIENT_USER_LOCATION", function(ret) {
+						document.getElementById("user-location-div").innerText = JSON.stringify(ret, null, "\t");
+					});
+					jsBridge.postNotification("CLIENT_USER_LOCATION", {});
+				} catch (err) {}
+			}
+		</script>
+	</body>
+</html>
