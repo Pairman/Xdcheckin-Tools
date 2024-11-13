@@ -31,9 +31,9 @@
 			const chaoxing_configs = {};
 
 			document.getElementById("user-agent-div").innerText = navigator.userAgent;
-			const device_identifier = (/\(@Kalimdor\)_(.*?)$/g).exec(navigator.userAgent);
-			if (device_identifier) {
-				chaoxing_configs["chaoxing_device_identifier"] = device_identifier;
+			const device_identifier_matches = (/\(@Kalimdor\)_(.*?)$/g).exec(navigator.userAgent);
+			if (device_identifier_matches) {
+				chaoxing_configs["chaoxing_device_identifier"] = device_identifier_matches[1];
 				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs, null, "    ");
 			}
 
