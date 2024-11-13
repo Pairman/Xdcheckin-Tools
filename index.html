@@ -4,25 +4,27 @@
 
 	<meta name="viewport" content="initial-scale=1">
 	<link rel="shortcut icon" href="#">
-	<style>
-		button {height: 40px; font-size: 22px;}
-		.info-div {word-wrap: break-word; width: 100%;}
-	</style>
+	<style>.info-div {word-wrap: break-word; width: 100%;}</style>
 	<script src="static/CXJSBridge.js"></script>
 
 	<body>
-		<p>Chaoxing Configurations</p>
-		&emsp;
-		<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
+		<div style="display: flex">
+			<div>Chaoxing Configs:</div>
+			&emsp;
+			<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
+		</div>
 		<div id="chaoxing-configs">{}</div>
 		<br>
-		<p>User Agent:</p>
+
+		<div>User Agent:</div>
 		<div id="user-agent-div" class="info-div"></div>
 		<br>
-		<p>Device Flag:</p>
+
+		<div>Device Flag:</div>
 		<div id="device-flag-div" class="info-div"></div>
 		<br>
-		<p>User Location:</p>
+
+		<div>User Location:</div>
 		<div id="user-location-div" class="info-div"></div>
 
 		<script>
