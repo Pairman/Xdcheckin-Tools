@@ -32,7 +32,7 @@
 			const device_identifier = (/\(@Kalimdor\)_(.*?)$/g).exec(navigator.userAgent);
 			if (device_identifier) {
 				chaoxing_configs["chaoxing_device_identifier"] = device_identifier;
-				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs);
+				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs, null, "    ");
 			}
 
 			function  _jsBridgeReady(){
@@ -43,7 +43,7 @@
 							deviceCode: device_code, flagInfo: ret.flagInfo
 						}, null, "    ");
 						chaoxing_configs["chaoxing_device_code"] = device_code;
-						document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs);
+						document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs, null, "    ");
 					});
 					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
 				} catch (err) {}
