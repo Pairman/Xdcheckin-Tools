@@ -4,7 +4,10 @@
 
 	<meta name="viewport" content="initial-scale=1">
 	<link rel="shortcut icon" href="#">
-	<style>.info-div {word-wrap: break-word; width: 100%;}</style>
+	<style>
+		button {height: 40px; font-size: 22px;}
+		.info-div {word-wrap: break-word; width: 100%;}
+	</style>
 	<script src="static/CXJSBridge.js"></script>
 
 	<body>
@@ -16,17 +19,31 @@
 		<br>
 		<p>User Location:</p>
 		<div id="user-location-div" class="info-div"></div>
+		<br>
+		<p>Chaoxing Configurations</p>
+		&emsp;
+		<button onclick="prompt('', JSON.stringify(chaoxing_configs))">Copy</button>
+		<div id="chaoxing-configs">{}</div>
 
 		<script>
+			const chaoxing_configs = {};
+
 			document.getElementById("user-agent-div").innerText = navigator.userAgent;
+			const device_identifier = (/\(@Kalimdor\)_(.*?)$/g).exec(s);
+			if (device_identifier) {
+				chaoxing_configs["chaoxing_device_identifier"] = device_identifier;
+				document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs);
+			}
 
 			function  _jsBridgeReady(){
 				try {
 					jsBridge.bind("CLIENT_DEVICE_FLAG", function(ret) {
+						const device_code = ret.flagInfo.trim().replace(/[?&]/g, "");
 						document.getElementById("device-flag-div").innerText = JSON.stringify({
-							deviceCode: ret.flagInfo.trim().replace(/[?&]/g, ""),
-							flagInfo: ret.flagInfo
+							deviceCode: device_code, flagInfo: ret.flagInfo
 						}, null, "    ");
+						chaoxing_configs["chaoxing_device_code"] = device_code;
+						document.getElementById("chaoxing-configs").innerText = JSON.stringify(chaoxing_configs);
 					});
 					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
 				} catch (err) {}
