@@ -23,16 +23,17 @@
 			function  _jsBridgeReady(){
 				try {
 					jsBridge.bind("CLIENT_DEVICE_FLAG", function(ret) {
-						if (ret && ret.flaginfo)
-							ret.deviceCode = ret.flagInfo.trim().replace(/[?&]/g, "");
-						document.getElementById("device-flag-div").innerText = JSON.stringify(ret, null, "\t");
+						document.getElementById("device-flag-div").innerText = JSON.stringify({
+							deviceCode: ret.flagInfo.trim().replace(/[?&]/g, ""),
+							flagInfo: ret.flagInfo
+						}, null, "    ");
 					});
 					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
 				} catch (err) {}
 
 				try {
 					jsBridge.bind("CLIENT_USER_LOCATION", function(ret) {
-						document.getElementById("user-location-div").innerText = JSON.stringify(ret, null, "\t");
+						document.getElementById("user-location-div").innerText = JSON.stringify(ret, null, "    ");
 					});
 					jsBridge.postNotification("CLIENT_USER_LOCATION", {});
 				} catch (err) {}
