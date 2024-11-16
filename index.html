@@ -20,6 +20,10 @@
 		<div id="user-agent-div" class="info-div"></div>
 		<br>
 
+		<div>Device ID:</div>
+		<div id="device-id-div" class="info-div"> </div>
+		<br>
+
 		<div>Device Flag:</div>
 		<div id="device-flag-div" class="info-div"> </div>
 		<br>
@@ -39,12 +43,16 @@
 
 			function  _jsBridgeReady(){
 				try {
+					jsBridge.bind("CLIENT_DEVICE_ID", function(ret) {
+						document.getElementById("device-id-div").innerText = JSON.stringify(ret, null, "\t");
+					});
+					jsBridge.postNotification("CLIENT_DEVICE_ID", {});
+				} catch (err) {}
+				
+				try {
 					jsBridge.bind("CLIENT_DEVICE_FLAG", function(ret) {
-						const device_code = ret.flagInfo.trim().replace(/[?&]/g, "");
-						document.getElementById("device-flag-div").innerText = JSON.stringify({
-							deviceCode: device_code, flagInfo: ret.flagInfo
-						}, null, "\t");
-						chaoxing_configs["chaoxing_device_code"] = device_code;
+						document.getElementById("device-flag-div").innerText = JSON.stringify(ret, null, "\t");
+						chaoxing_configs["chaoxing_device_code"] = ret.flagInfo.trim().replace(/[?&]/g, "");
 						document.getElementById("chaoxing-configs-div").innerText = JSON.stringify(chaoxing_configs, null, "\t");
 					});
 					jsBridge.postNotification("CLIENT_DEVICE_FLAG", {});
