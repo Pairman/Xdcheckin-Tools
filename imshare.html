@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+	<title>Xdcheckin Tools - Imshare</title>
+
+	<meta name="viewport" content="initial-scale=1">
+	<link rel="shortcut icon" href="#">
+	<style>.info-div {width: 100%; background-color: #eee; border-radius: 3px; font-family: courier, monospace; padding: 0 3px;}</style>
+
+	<body>
+		<div>Choose Image</div>
+		<input id="image-file" type="file" accept="image/*" required>
+		<br>
+		<br>
+
+		<div>Upload Image</div>
+		<button id="image-upload-button">Submit</button>
+		<br>
+		<br>
+
+		<div>Result</div>
+		<div id="img-result-div" class="info-div"></div>
+
+		<script>
+			document.getElementById("image-upload-button").addEventListener("click", async function() {
+				const file = document.getElementById("image-file").files[0];
+				if (!file)
+					return alert("No file chosen.");
+				const url = "https://fanya.zyk2.chaoxing.com/upload/uploadImg";
+				const data = {method: "POST", body: new FormData()};
+				data.body.append("coverfile", file);
+				try {
+					const res = await fetch(url, data);
+					if (!res.ok)
+						throw new Error();
+					const d = await res.json();
+					if (!d.http)
+						throw new Error();
+					const e = document.createElement("a");
+					e.href = e.innerText = d.http;
+					document.getElementById("img-result-div").append(e);
+				} catch (err) {
+					alert(`Upload failed. (${err})`);
+				}
+			});
+		</script>
+	</body>
+</html>
